@@ -40,12 +40,13 @@ async function displayItemOnScreen() {
   const editbtn = document.createElement('input') //Edit Button
   editbtn.type = 'button';
   editbtn.value = 'Edit'; //value of edit button
-  editbtn.onclick = () => {
-    localStorage.removeItem(obj.name);
+  editbtn.onclick = async () => {
+  //  localStorage.removeItem(obj.name);
+   await axios.delete(`https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails/${appointment._id}`)
     listItem.removeChild(newItem);
-    document.getElementById('name').value = obj.name;
-    document.getElementById('email').value = obj.email;
-    document.getElementById('number').value = obj.number;
+    document.getElementById('name').value = appointment.name;
+    document.getElementById('email').value = appointment.email;
+    document.getElementById('number').value = appointment.number;
   }
   
   newItem.textContent = appointment.name + '-' + appointment.email + '-' + appointment.number;
