@@ -17,19 +17,26 @@ catch(err){console.log(err)}
 
 // Display an item on the screen along with buttons
 
-function displayItemOnScreen(obj) {
+async function displayItemOnScreen() {
  
- try{   const newItem = document.createElement('li');
-  newItem.textContent = obj.name + '-' + obj.email + '-' + obj.number;
+ const innerHTML="";
+     const response=await axios.get("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails")
+     let appointments=response.data
+     for(let i=0;i<appointments.length;i++){
+      const appointment=appointments[i]
+    
+     const newItem = document.createElement('li');
 
   // Create Delete Button
   const deletebtn = document.createElement('input') //Delete Button
   deletebtn.type = 'button';
   deletebtn.value = 'Delete'; //value of delete button
-  deletebtn.onclick = () => {
-    localStorage.removeItem(obj.name);
+  deletebtn.onclick =async () => {
+    // localStorage.removeItem(obj.name);
+    await axios.delete(`https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails/${appointment._id}`)
     listItem.removeChild(newItem);
   }
+  
   const editbtn = document.createElement('input') //Edit Button
   editbtn.type = 'button';
   editbtn.value = 'Edit'; //value of edit button
@@ -40,23 +47,25 @@ function displayItemOnScreen(obj) {
     document.getElementById('email').value = obj.email;
     document.getElementById('number').value = obj.number;
   }
+  
+  newItem.textContent = appointment.name + '-' + appointment.email + '-' + appointment.number;
 
   newItem.appendChild(deletebtn) //deletebtn append into li
   newItem.appendChild(editbtn) //editbtn append into li
   listItem.appendChild(newItem); // to show under the form downwards
+ } //for close
 }
-catch(err){
-    console.log(err)
-}
-}
+document.addEventListener("DOMContentLoaded",()=>{
+  displayItemOnScreen()
+})
 
 // Add event listener for page load
-document.addEventListener("DOMContentLoaded", () => {
-  axios.get("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails")
-  .then ((response)=>{
-    console.log(response)
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-})
+// document.addEventListener("DOMContentLoaded", () => {
+//   axios.get("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails")
+//   .then ((response)=>{
+//     console.log(response)
+//   })
+//   .catch((err)=>{
+//     console.log(err)
+//   })
+// })
