@@ -2,12 +2,12 @@ const listItem = document.getElementById("items");
 
 async function submitHandler(event) {
  
- try{   event.preventDefault();
+ try{  event.preventDefault();
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const number = document.getElementById('number').value;
   const obj = { name, email, number };
-  await axios.post("https://crudcrud.com/api/dd1a84aab3f7444a8cfd25938201cac7/AppointmentDetails",obj)
+  await axios.post("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails",obj)
   displayItemOnScreen(obj);
  // addItemToLocalStorage(obj);
   event.target.reset();
@@ -50,16 +50,13 @@ catch(err){
 }
 }
 
-function loadItems() {
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    const obj = JSON.parse(localStorage.getItem(key));
-    displayItemOnScreen(obj);
-  }
-
-}
-
 // Add event listener for page load
 document.addEventListener("DOMContentLoaded", () => {
-  loadItems();
+  axios.get("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails")
+  .then ((response)=>{
+    console.log(response)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
 })
