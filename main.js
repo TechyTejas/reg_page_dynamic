@@ -7,7 +7,7 @@ async function submitHandler(event) {
   const email = document.getElementById('email').value;
   const number = document.getElementById('number').value;
   const obj = { name, email, number };
-  await axios.post("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails",obj)
+  await axios.post("https://crudcrud.com/api/890ac490611c446292ee1bf2b7840f20/AppointmentDetails",obj)
   displayItemOnScreen(obj);
  // addItemToLocalStorage(obj);
   event.target.reset();
@@ -19,30 +19,32 @@ catch(err){console.log(err)}
 
 async function displayItemOnScreen() {
  
- const innerHTML="";
-     const response=await axios.get("https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails")
+ //const innerHTML="";
+     const response=await axios.get("https://crudcrud.com/api/890ac490611c446292ee1bf2b7840f20/AppointmentDetails")
      let appointments=response.data
      for(let i=0;i<appointments.length;i++){
       const appointment=appointments[i]
+      
+      const newItem = document.createElement('li');
     
-     const newItem = document.createElement('li');
-
   // Create Delete Button
   const deletebtn = document.createElement('input') //Delete Button
+  deletebtn.id ="btn1"
   deletebtn.type = 'button';
   deletebtn.value = 'Delete'; //value of delete button
   deletebtn.onclick =async () => {
     // localStorage.removeItem(obj.name);
-    await axios.delete(`https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails/${appointment._id}`)
+    await axios.delete(`https://crudcrud.com/api/890ac490611c446292ee1bf2b7840f20/AppointmentDetails/${appointment._id}`)
     listItem.removeChild(newItem);
   }
   
   const editbtn = document.createElement('input') //Edit Button
   editbtn.type = 'button';
   editbtn.value = 'Edit'; //value of edit button
+  editbtn.id ="btn2"
   editbtn.onclick = async () => {
   //  localStorage.removeItem(obj.name);
-   await axios.delete(`https://crudcrud.com/api/e66c13e9974b430b9b4fbc2cc76631e6/AppointmentDetails/${appointment._id}`)
+   await axios.delete(`https://crudcrud.com/api/890ac490611c446292ee1bf2b7840f20/AppointmentDetails/${appointment._id}`)
     listItem.removeChild(newItem);
     document.getElementById('name').value = appointment.name;
     document.getElementById('email').value = appointment.email;
